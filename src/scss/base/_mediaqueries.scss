@@ -1,0 +1,12 @@
+//Example usage
+// @media #{$xs} { css }
+// @media #{$sm} { css }
+// @media #{$md} { css }
+// @media #{$lg} { css }
+// @media #{$notlarge} { css }
+
+$lg: 'only screen and (min-width: 1270px)'; // Default is large.
+$md: 'only screen and (min-width: 768px) and (max-width:1269px)';  
+$sm: 'only screen and (max-width: 767px)'; // Covers large and small phones.
+$xs: 'only screen and (max-width: 479px)'; // for extra targeting of small phones
+$notlarge: 'only screen and (max-width: 1269px)'; // sm + md, no large

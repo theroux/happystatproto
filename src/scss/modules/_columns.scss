@@ -1,0 +1,38 @@
+.dummy-container {
+	@extend %container;
+}
+.dummy-row {
+	@extend %row;
+	
+
+}
+.dummy-row-1s {
+	@media #{$notlarge} {
+		display: none;	
+	}
+}
+.dummy-div-1 {
+	@extend %col-lg-1;
+	@extend %col-sm-1;
+	background: teal;
+}
+.dummy-div-4 {
+	@extend %col-lg-4;
+	background: grey;
+}
+.dummy-div-10 {
+	@extend %col-lg-10;
+	background: purple;
+}
+.dummy-div-12 {
+	@extend %col-lg-12;
+	background: lightcoral;
+}
+.inner-text {
+	clear: both;
+	background-color: rgba(white,0.5);
+	height: 1.5em;
+	padding: 0.25em 0;
+	overflow: hidden;
+	text-align: center;
+}

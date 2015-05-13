@@ -1,0 +1,64 @@
+.aolfooter-wrapper {
+	background: #222;
+	color: #fff;
+	margin-top: 50px;
+}
+.aolfooter {
+	@extend %container;
+	padding-top: 50px;
+	padding-bottom: 30px;
+	font-family: sans-serif;
+	@media #{$notlarge} {
+		padding-top: 28px;
+		padding-bottom: 13px;
+	}
+}
+.aolfooter-details {
+	@extend %row;
+}
+.aolfooter-copyright {
+	@extend %col-lg-12;
+	text-align: center;
+}
+.aolfooter-logo-link {
+	color: #fff;
+	text-decoration: none;
+	.svg--aol-scribble {
+		display: inline-block;
+		fill: white;
+		height: 37px;
+		width: 45px;
+		vertical-align: middle;
+	}
+}
+.aolfooter-legaltext {
+	color: #8c8c8c;
+	font-size: 12px;
+	&:first-child {
+		padding-right: 1rem;
+	}
+	&:last-child {
+		padding-left: 1rem;
+	}
+}
+.arcturus-nav-wrapper {
+	background-color: #222;
+}
+.arcturus-nav {
+	@extend %container;
+	font-family: sans-serif;
+	font-style: italic;
+	font-size: 0.75rem;
+}
+.arcturus-nav-details {
+	@extend %row;
+	a, span {
+		@extend %col-lg-3;
+		@extend %col-md-3;
+		@extend %col-sm-3;
+		color: #8c8c8c;
+		padding-top: 1rem;
+		padding-bottom: 1rem;
+		text-align: center;
+	}
+}

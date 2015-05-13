@@ -1,0 +1,22 @@
+.dash-wrapper {
+	@extend %container;
+}
+.dash-row {
+	@extend %row;
+}
+.dash {
+	@extend %col-lg-10;
+	@extend %col-lg-offset-1;
+	@extend %col-md-10;
+	@extend %col-md-offset-1;
+	@extend %col-sm-12;
+	@extend %col-sm-offset-0;
+
+	background: rgba(orange,0.3);
+	border: 2px solid rgba(orange,0.7);
+	//height: 5em;
+}
+
+li {
+	list-style: none;
+}

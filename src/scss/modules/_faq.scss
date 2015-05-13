@@ -1,0 +1,17 @@
+.faq-wrapper {
+	@extend %container;
+}
+.faq-row {
+	@extend %row;
+}
+.faq {
+	@extend %col-lg-10;
+	@extend %col-lg-offset-1;
+	@extend %col-md-10;
+	@extend %col-md-offset-1;
+	@extend %col-sm-12;
+	@extend %col-sm-offset-0;
+}
+.q-and-a {
+	margin-bottom: 1em;
+}
