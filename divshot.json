@@ -1,3 +1,11 @@
 {
-  "name": "arcturus"
+  "name": "happystatfrondend",
+  "headers": {
+    "/cors-stuff/**": {
+      "Access-Control-Allow-Origin": "*"
+    },
+    "/scripts/**": {
+      "content-type": "text/javascript"
+    }
+  }
 }

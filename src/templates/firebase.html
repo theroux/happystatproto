@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>HappyStat | AOL</title>
+        <title>Google Form - HappyStat | AOL</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- <link rel="icon" type="image/png" href="./images/common/favicon.png" /> -->
 
@@ -24,16 +24,29 @@
 
         @@include('./partials/nav.html')
 
-        @@include('./partials/dash.html')
-
-        @@include('./partials/faq.html')
-
-        @@include('./partials/team.html')
+       	@@include('./partials/form.html')
 
         @@include('./partials/footer.html')
         
         @@include('./partials/jsbottom.html')
         
+        <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+        <script>
+        var myDataRef = new Firebase('https://happystat.firebaseio.com/');
+		$('form').on('submit', function() {
+			var sentiment = $('#sentiment').val(),
+				cdid = $('#cdid').val(),
+				referrer = $('#referrer').val();
+			myDataRef.push({sentiment: sentiment, cdid: cdid, referrer : referrer, timestamp : Firebase.ServerValue.TIMESTAMP });
+			console.log('submitted');
+		});
+	    </script>
+		<script>
+		$(function() {
+		    console.log( "ready!" );
+		});
+		</script>
 
     </body>
 </html>
+
