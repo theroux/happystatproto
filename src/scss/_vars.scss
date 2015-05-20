@@ -1,14 +1,30 @@
 //// Theme Variables
 
 // Fonts
-$headline-font : 'Source Sans Pro','HelveticaNeue', 'Helvetica', 'Arial', sans-serif;
-$subheadline-font : 'Source Sans Pro','HelveticaNeue', 'Helvetica', 'Arial', sans-serif;
-$label-headline-font: 'Source Sans Pro','HelveticaNeue', 'Helvetica', 'Arial', sans-serif;
-$copy-font : 'Source Sans Pro','HelveticaNeue', 'Helvetica', 'Arial', sans-serif;
+$font : 'Open Sans', Helvetica, sans-serif;
+
+// Font weights
+$bold : 600;
+$semibold : 400;
 
 $copy-size-lg : 14px;
 $copy-size-sm : 12px;
 
 // Colors
-$logo-accent : #009dd6;
-$logo-main : #00afee;
+
+$headerbg: #e3eaf3;
+$logofill: #4c637b;
+$textcolor: #4c637b;
+$hrcolor : #e3eaf3;
+$highlight : #22c064;
+
+body {
+	color: $textcolor;
+	font-family: $font;
+	font-weight: $semibold;
+	
+}
+
+a {
+	color: $textcolor;
+}

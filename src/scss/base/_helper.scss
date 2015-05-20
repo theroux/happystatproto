@@ -6,6 +6,12 @@ $svg-font-reset: Helvetica, Arial, sans-serif;
     font-family: $svg-font-reset;
 }
 
+html {
+    height: 100%;
+}
+body {
+  min-height: 100%;
+}
 .ir {
     background-color: transparent;
     border: 0;

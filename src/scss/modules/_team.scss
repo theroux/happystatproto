@@ -13,3 +13,29 @@
 	@extend %col-sm-offset-0;
 
 }
+
+.bio {
+	display: table;
+	margin-bottom: 3rem;
+
+	.photo {
+		display: table-cell;
+		border-radius: 50%;
+		width: 150px;
+		height: 150px;
+		vertical-align: top;
+		margin-right: 2em;
+
+	}
+	.text {
+		display: table-cell;
+		vertical-align: top;
+
+
+	}
+	.name {
+		font-weight: $bold;
+		font-size: 1.7rem;
+		margin-bottom: 1rem;
+	}
+}

@@ -45,8 +45,29 @@ var happy = {
       },
     },
    
-    
     //Public Methods **************************
+    dash : function() {
+      var dashData,
+          coords;
+
+      // Firebase
+      // Get a reference to our posts
+      var dash = new Firebase('https://happystat.firebaseio.com/');
+      // Attach an asynchronous callback to read the data at our posts reference
+      dash.on('value', function(snapshot) {
+        //console.log(snapshot.val());
+        dashData = snapshot.val();
+        //console.log(dashData);
+        coords = happy.sortData(dashData);
+        console.dir(coords);
+
+        happy.drawChart(coords);
+
+      }, function (errorObject) {
+        console.log('The read failed: ' + errorObject.code);
+      });
+      
+    },
     suggestion : function() {
       var suggestionDataRef = new Firebase('https://suggestionbox.firebaseio.com/');
       $('form').on('submit', function() {
@@ -182,36 +203,29 @@ var happy = {
       }
       return chartCoords;
     },
+    highlightNav : function() {
+      var currentUrl = window.location.href,
+          lastSlash = currentUrl.lastIndexOf('/'),
+          currentPage = currentUrl.substring(lastSlash+1),
+          htmlextension;
 
-    dash : function() {
-      var dashData,
-          coords;
+      if (currentPage.indexOf(".html") > -1) {
+        htmlextension = currentPage.indexOf(".html")
+        currentPage = currentPage.substring(0,htmlextension)
+      }
 
-      // Firebase
-      // Get a reference to our posts
-      var dash = new Firebase('https://happystat.firebaseio.com/');
-      // Attach an asynchronous callback to read the data at our posts reference
-      dash.on('value', function(snapshot) {
-        //console.log(snapshot.val());
-        dashData = snapshot.val();
-        //console.log(dashData);
-        coords = happy.sortData(dashData);
-        console.dir(coords);
+      if (currentPage === ('' || 'index')) {
+        currentPage = 'dash';
+      }
 
-        happy.drawChart(coords);
-
-      }, function (errorObject) {
-        console.log('The read failed: ' + errorObject.code);
-      });
-      
-
-      
-
-
+      $('nav a[data-href=' + currentPage + ']').addClass('current');
     },
 
     init : function() {
-      console.log('Happy Stat front-end initialized.');
+
+      happy.highlightNav();
+      
+      console.log('HappyStat front-end initialized.');
     } // End Init
 };
 $(function() {

@@ -12,30 +12,60 @@
 	@extend %col-sm-12;
 	@extend %col-sm-offset-0;
 
-	background: rgba($logo-main,0.3);
-	border: 2px solid rgba($logo-accent,0.7);
+	//background: rgba($logo-main,0.3);
+	//border: 2px solid rgba($logo-accent,0.7);
 	
-	border-radius: 3px;
-
-	padding: 1em 0;
-
-	margin-bottom: 2em;
+	margin-bottom: 3em;
 
 }
 .nav-inner {
-	display: table;
-	width: 100%;
+	@extend %clearfix;
+	position: relative;
+	top: -2px;
+
+	border-bottom: 2px solid $hrcolor;
+
+	.left, .right {
+		margin-top: 2em;
+		margin-bottom: 1.5em;
+		position: relative;
+		top: 2px;
+	}
+
+	.left {
+		float: left;
+
+		a {
+			margin-right: 3em;
+		}
+	}
+	.right {
+		float: right;
+
+		a {
+			margin-left: 3em;
+		}
+	}
 
 	a {
-		color: #333;
-		display: table-cell;
+
+		font-weight: $bold;
+
+		padding-top: 2em;
+		padding-bottom: 1.5em;
+
 		text-decoration: none;
 		text-align: center;
 
 		&:hover {
-			text-decoration: underline;
+			border-bottom: 2px solid $highlight;
 		}
+		&.current {
+			border-bottom: 2px solid $textcolor;
+		}
+
 	}
+
 		
 }
 	

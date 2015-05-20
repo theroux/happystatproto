@@ -13,5 +13,21 @@
 	@extend %col-sm-offset-0;
 }
 .q-and-a {
-	margin-bottom: 1em;
+	margin-bottom: 3rem;
+
+	.question {
+		font-weight: $bold;
+		font-size: 1.7rem;
+		margin-bottom: 1rem;
+		text-align: center;
+
+	}
+
+	.answer {
+
+
+		&.short {
+			text-align: center;
+		}
+	}
 }
