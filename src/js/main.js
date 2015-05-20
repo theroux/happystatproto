@@ -224,8 +224,14 @@ var happy = {
     init : function() {
 
       happy.highlightNav();
+
+      $('.nav-button').on('click', function() {
+        $('.nav-inner').toggleClass('closed');
+      });
       
       console.log('HappyStat front-end initialized.');
+
+
     } // End Init
 };
 $(function() {
