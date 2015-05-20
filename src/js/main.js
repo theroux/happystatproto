@@ -69,24 +69,47 @@ var happy = {
       
     },
     suggestion : function() {
-      var suggestionDataRef = new Firebase('https://suggestionbox.firebaseio.com/');
-      $('form').on('submit', function() {
-        var sentiment = $('#sentiment').val(),
+      var suggestionDataRef = new Firebase('https://suggestionbox.firebaseio.com/'),
+          gotIt = 'Thanks!';
+
+      $('form').on('submit', function(e) {
+        e.preventDefault();
+        var suggestion = $('#suggestiontext').val(),
           cdid = $('#cdid').val(),
-          referrer = $('#referrer').val();
-        suggestionDataRef.push({sentiment: sentiment, cdid: cdid, referrer : referrer, timestamp : Firebase.ServerValue.TIMESTAMP });
+          referrer = $('#referrer').val(),
+          shoutout = $('#shoutout').is(':checked'),
+          workflow = $('#workflow').is(':checked'),
+          problem = $('#problem').is(':checked'),
+          newidea =  $('#newidea').is(':checked');
+
+        suggestionDataRef.push({suggestion: suggestion, cdid: cdid, referrer : referrer, shoutout: shoutout, workflow: workflow, problem: problem, newidea: newidea, timestamp : Firebase.ServerValue.TIMESTAMP });
         console.log('submitted suggestion');
+
+        $('.suggestion-submit').attr('disabled', 'disabled').addClass('success').text(gotIt);
+
       });
     },
 
     sentiment : function() {
-      var sentimentDataRef = new Firebase('https://happystat.firebaseio.com/');
-      $('form').on('submit', function() {
-        var sentiment = $('#sentiment').val(),
+      var sentimentDataRef = new Firebase('https://happystat.firebaseio.com/'),
+          successMessage = 'Thanks! Your response has been recorded!',
+          gotIt = 'Got it!';
+
+
+      $('form').on('submit', function(e) {
+        e.preventDefault();
+        var sentiment = $('input[name=mood]:checked').val(),
           cdid = $('#cdid').val(),
           referrer = $('#referrer').val();
         sentimentDataRef.push({sentiment: sentiment, cdid: cdid, referrer : referrer, timestamp : Firebase.ServerValue.TIMESTAMP });
         console.log('submitted sentiment');
+        $('.hs-question').text(successMessage);
+        $('.sentiment-submit').attr('disabled', 'disabled').addClass('success').text(gotIt);
+
+      });
+
+      $('.hs-answer').on('click', function() {
+          $('.sentiment-submit').removeAttr('disabled');
       });
     },
     drawChart : function(drawcoords) {

@@ -3,16 +3,34 @@
 		<div class="sentiment">
 			<form class="sentiment-form">
 				<fieldset class="sentiment-fieldset">
-					<legend class="hs-legend">How are you feeling about the next 90 days at AOL?</legend>
-					<div class="hs-question" aria-hidden>How are you feeling about the next 90 days at AOL?</div>
-					<div class="hs-answers"><div class="hs-answer-wrapper"><input value="great" id="great" name="mood" type="radio" class="hs-answer hs-answer-great" title="Great!" /><span class="hs-answer-placeholder"></span><label class="hs-label" for="great">Great</label></div>
-					<div class="hs-answer-wrapper"><input value="ok" id="ok" name="mood" type="radio" class="hs-answer hs-answer-ok" title="OK" /><span class="hs-answer-placeholder"></span><label class="hs-label" for="ok">OK</label></div>
-					<div class="hs-answer-wrapper"><input value="notgreat" id="notgreat" name="mood" type="radio" class="hs-answer hs-answer-notgreat" title="Not Great" /><span class="hs-answer-placeholder"></span><label class="hs-label" for="notgreat">Not Great</label></div>
+					<legend class="hs-legend">How do you feel about your job?</legend>
+					<div class="hs-question" aria-hidden>How do you feel about your job?</div>
+					<div class="hs-answers">
+						<div class="hs-answer-wrapper">
+							<input value="great" id="great" name="mood" type="radio" class="hs-answer hs-answer-great" title="Great!" />
+							<span class="hs-answer-placeholder"></span>
+							<label class="hs-label" for="great">Great</label>
+						</div>
+						<div class="hs-answer-wrapper">
+							<input value="ok" id="ok" name="mood" type="radio" class="hs-answer hs-answer-ok" title="OK" />
+							<span class="hs-answer-placeholder"></span>
+							<label class="hs-label" for="ok">OK</label>
+						</div>
+						<div class="hs-answer-wrapper">
+							<input value="notgreat" id="notgreat" name="mood" type="radio" class="hs-answer hs-answer-notgreat" title="Not Great" />
+							<span class="hs-answer-placeholder"></span>
+							<label class="hs-label" for="notgreat">Not Great</label>
+						</div>
 					</div>
 				</fieldset>
 				<input type="hidden" id="cdid" name="cdid" value="andrewtheroux" />
 				<input type="hidden" id="referrer" name="referrer" value="sentimentform"/>
-				<input class="sentiment-submit" type="submit">
+				<button class="sentiment-submit" type="submit" disabled>
+					<svg class="svg-caret" viewbox="0 0 426 201">
+		 				<use xlink:href="#svg-right-caret"></use>
+					</svg>
+					<span class="button-text">Submit Form</span>
+				</button>
 			</form>
 
 		</div>

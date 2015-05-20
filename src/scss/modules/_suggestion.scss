@@ -46,12 +46,20 @@
 		display: block;
 		min-height: 140px;
 		width: 100%;
+
+		@media #{$notlarge} { 
+			margin-bottom: 1em;
+		}
 	}
 }
 .form-section-second {
 	@extend %col-lg-3;
 	@extend %col-md-3;
 	@extend %col-sm-12;
+
+	legend {
+		margin-bottom: 1em;
+	}
 
 	.checkbox-wrapper {
 		margin-top: 1em;

@@ -30,7 +30,7 @@ a {
 
 %button {
 	background: $highlight;
-	border: 2px solid transparent;
+	border: 2px solid $highlight;
 	color: #fff;
 	border-radius: 3px;
 	padding: 0.5em 1.5em;
@@ -51,6 +51,15 @@ a {
 		color: $highlight;
 		svg {
 			fill: $highlight;
+		}
+	}
+	&[disabled], &[disabled]:hover {
+		background: #ccc;;
+		border: 2px solid #ccc;
+		color: #fff;
+		cursor: not-allowed;
+		svg {
+			fill: #fff;
 		}
 	}
 } 
