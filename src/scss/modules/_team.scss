@@ -30,12 +30,13 @@
 	.text {
 		display: table-cell;
 		vertical-align: top;
-
-
 	}
 	.name {
 		font-weight: $bold;
 		font-size: $headingsize;
 		margin-bottom: 1rem;
+	}
+	p {
+		margin-bottom: 1em;
 	}
 }

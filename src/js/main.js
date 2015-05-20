@@ -55,18 +55,141 @@ var happy = {
       var dash = new Firebase('https://happystat.firebaseio.com/');
       // Attach an asynchronous callback to read the data at our posts reference
       dash.on('value', function(snapshot) {
-        //console.log(snapshot.val());
         dashData = snapshot.val();
-        //console.log(dashData);
+        
         coords = happy.sortData(dashData);
-        console.dir(coords);
-
-        happy.drawChart(coords);
+    
+        happy.drawN3(coords);
 
       }, function (errorObject) {
         console.log('The read failed: ' + errorObject.code);
       });
       
+    },
+    drawN3 : function (data) {
+
+      //console.log(data);
+
+      nv.addGraph(function() {
+        var chart = nv.models.cumulativeLineChart()
+          .x(function(d) { 
+            //console.log(d); 
+            return d[0] 
+          })
+          .y(function(d) { 
+            return d[1] 
+          })
+          .color(d3.scale.category10().range())
+          .useInteractiveGuideline(true)
+          ;
+
+        chart.xAxis
+          .tickFormat(function(d) {
+            return d3.time.format('%x')(new Date(d))
+          });
+
+        chart.yAxis.tickFormat(d3.format(',d'));
+
+        d3.select('#chart svg')
+          .datum(data)
+          //.transition().duration(500)
+          .call(chart)
+          ;
+
+        nv.utils.windowResize(chart.update);
+
+        return chart;
+      });
+    },
+
+    sortData : function(storeData) {
+      var chartCoords = {
+          raw : {
+            great : [],
+            ok : [],
+            notgreat : [],
+            noparticipation : []
+          },
+          results : {
+            great : {
+              values: [],
+              key: 'Great',
+              color: '#00ff00'
+            },
+            ok : {
+              values: [],
+              key: 'OK',
+              color: '#0000ff'
+            },
+            notgreat : {
+              values: [],
+              key: 'Not Great',
+              color: '#ff0000'
+            },
+            noparticipation : {
+              values: [],
+              key: 'No Participation',
+              color: '#000000'
+            }
+          }
+        };
+
+        var greatresult = {},
+            okresult = {},
+            notgreatresult = {},
+            noresult = {},
+            finalData = [];
+
+      for (var submission in storeData) {
+
+        var sentimentType = storeData[submission].sentiment,
+            dateSubmitted = new Date(storeData[submission].timestamp),
+            dateFormattedSubmitted = moment(dateSubmitted).format("MM-DD-YYYY");
+            console.log(typeof dateFormattedSubmitted);
+        
+        chartCoords.raw[sentimentType].push(dateFormattedSubmitted);
+        
+      }
+
+      chartCoords.raw.great.forEach(function(x) { 
+          greatresult[x] = (greatresult[x] || 0)+1; 
+        });
+      chartCoords.raw.ok.forEach(function(x) { 
+          okresult[x] = (okresult[x] || 0)+1; 
+        });
+      chartCoords.raw.notgreat.forEach(function(x) { 
+        notgreatresult[x] = (notgreatresult[x] || 0)+1; 
+      });
+      chartCoords.raw.noparticipation.forEach(function(x) { 
+        noresult[x] = (noresult[x] || 0)+1; 
+      });
+
+      console.log(greatresult);
+
+      var greatarray = $.map(greatresult, function(value, index) {
+          return [[index,value]];
+      });
+
+      console.log(greatarray);
+
+      chartCoords.results.great.values.push(greatarray);
+
+      console.log(chartCoords.results.great.values);
+
+      finalData.push(chartCoords.results.great);
+      //chartCoords.results.ok.values.push(okresult);
+      //chartCoords.results.notgreat.values.push(notgreatresult);
+      //chartCoords.results.noparticipation.values.push(noresult);
+
+      /* for (var data in chartCoords.results ) {
+
+        finalData.push(chartCoords.results[data]);
+        
+      } */
+
+      //console.log(finalData);
+
+      return finalData;
     },
     suggestion : function() {
       var suggestionDataRef = new Firebase('https://suggestionbox.firebaseio.com/'),
@@ -111,118 +234,6 @@ var happy = {
       $('.hs-answer').on('click', function() {
           $('.sentiment-submit').removeAttr('disabled');
       });
-    },
-    drawChart : function(drawcoords) {
-
-      var margin = {top: 20, right: 80, bottom: 30, left: 50},
-          width = 960 - margin.left - margin.right,
-          height = 500 - margin.top - margin.bottom;
-
-      var parseDate = d3.time.format("%Y%m%d").parse;
-
-      var x = d3.time.scale()
-          .range([0, width]);
-
-      var y = d3.scale.linear()
-          .range([height, 0]);
-
-      var color = d3.scale.category10();
-
-      var xAxis = d3.svg.axis()
-          .scale(x)
-          .orient("bottom");
-
-      var yAxis = d3.svg.axis()
-          .scale(y)
-          .orient("left");
-
-      var line = d3.svg.line()
-          .interpolate("basis")
-          .x(function(d) { return x(d.date); })
-          .y(function(d) { return y(d.temperature); });
-
-      var svg = d3.select(".dash").append("svg")
-          .attr("width", width + margin.left + margin.right)
-          .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-          .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-      //d3.
-      /* d3.json(dashData, function(error, data) {
-        color.domain(d3.keys(data[0]).filter(function(key) { return key !== "date"; }));
-
-        data.forEach(function(d) {
-          d.date = parseDate(d.date);
-        });
-
-        var cities = color.domain().map(function(name) {
-          return {
-            name: name,
-            values: data.map(function(d) {
-              return {date: d.date, temperature: +d[name]};
-            })
-          };
-        });
-
-        x.domain(d3.extent(data, function(d) { return d.date; }));
-
-        y.domain([
-          d3.min(cities, function(c) { return d3.min(c.values, function(v) { return v.temperature; }); }),
-          d3.max(cities, function(c) { return d3.max(c.values, function(v) { return v.temperature; }); })
-        ]);
-
-        svg.append("g")
-            .attr("class", "x axis")
-            .attr("transform", "translate(0," + height + ")")
-            .call(xAxis);
-
-        svg.append("g")
-            .attr("class", "y axis")
-            .call(yAxis)
-          .append("text")
-            .attr("transform", "rotate(-90)")
-            .attr("y", 6)
-            .attr("dy", ".71em")
-            .style("text-anchor", "end")
-            .text("Temperature (ºF)");
-
-        var city = svg.selectAll(".city")
-            .data(cities)
-          .enter().append("g")
-            .attr("class", "city");
-
-        city.append("path")
-            .attr("class", "line")
-            .attr("d", function(d) { return line(d.values); })
-            .style("stroke", function(d) { return color(d.name); });
-
-        city.append("text")
-            .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; })
-            .attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + y(d.value.temperature) + ")"; })
-            .attr("x", 3)
-            .attr("dy", ".35em")
-            .text(function(d) { return d.name; });
-      }); */
-
-    },
-
-    sortData : function(storeData) {
-      var chartCoords = {
-          great : [],
-          ok : [],
-          notgreat : [],
-          noparticipation : []
-        };
-
-      for (var submission in storeData) {
-
-        var sentimentType = storeData[submission].sentiment,
-            dateSubmitted = new Date(storeData[submission].timestamp);
-
-        chartCoords[sentimentType].push(dateSubmitted);
-        
-      }
-      return chartCoords;
     },
     highlightNav : function() {
       var currentUrl = window.location.href,

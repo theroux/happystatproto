@@ -40,6 +40,7 @@ $answerheight : 130px;
 }
 
 .hs-answer-wrapper {
+	cursor: pointer;
 	position: relative;
 	display: table-cell;
 	height: $answerheight;
