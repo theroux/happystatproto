@@ -1,5 +1,6 @@
 {
   "name": "happystatfrondend",
+  "clean_urls": true,
   "headers": {
     "/cors-stuff/**": {
       "Access-Control-Allow-Origin": "*"

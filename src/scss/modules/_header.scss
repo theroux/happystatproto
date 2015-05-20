@@ -17,9 +17,9 @@
 
 }
 .hs-logo {
-	@extend %col-lg-1;
-	@extend %col-md-1;
-	@extend %col-sm-2;
+	@extend %col-lg-2;
+	@extend %col-md-2;
+	@extend %col-sm-4;
 
 	@extend %col-lg-offset-1;
 	@extend %col-md-offset-1;
@@ -32,27 +32,26 @@
 		
 		@media #{$notlarge} {
 			margin: 0 auto;
-			width: 40px;
+			//width: 40px;
 		}
 	}
-	.svg--aol {
+	.svg-hslogo {
 		display: block;
-		fill: #000;
-		width: 100%;
+		//width: 120px;
 		
 		@media #{$notlarge} {
-			height: 15px;
-			width: 40px;
+			//height: 15px;
+			//width: 40px;
 		}
 	}
 }
 .aol-logo {
 	@extend %col-lg-1;
-	@extend %col-lg-offset-8;
+	@extend %col-lg-offset-7;
 	@extend %col-md-1;
-	@extend %col-md-offset-8;
+	@extend %col-md-offset-7;
 	@extend %col-sm-2;
-	@extend %col-sm-offset-6;
+	@extend %col-sm-offset-2;
 	
 	.aol-logo-link {
 		@extend %svg-font-reset;
@@ -61,7 +60,7 @@
 		
 		@media #{$notlarge} {
 			margin: 0 auto;
-			width: 40px;
+			//width: 40px;
 		}
 	}
 	.svg--aol {
@@ -70,8 +69,8 @@
 		width: 100%;
 		
 		@media #{$notlarge} {
-			height: 15px;
-			width: 40px;
+			//height: 15px;
+			//width: 40px;
 		}
 	}
 }

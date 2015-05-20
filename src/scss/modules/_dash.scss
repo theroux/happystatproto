@@ -12,11 +12,21 @@
 	@extend %col-sm-12;
 	@extend %col-sm-offset-0;
 
-	background: rgba(orange,0.3);
-	border: 2px solid rgba(orange,0.7);
-	//height: 5em;
 }
 
-li {
-	list-style: none;
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
 }

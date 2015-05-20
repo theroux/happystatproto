@@ -60,12 +60,16 @@ gulp.task('plugins', function() {
 // Scripts -- dev
 gulp.task('scripts', function() {
   return gulp.src('src/js/*.js')
-    .pipe(jshint('.jshintrc'))
-    .pipe(jshint.reporter('default'))
+    //.pipe(jshint('.jshintrc'))
+    //.pipe(jshint.reporter('default'))
     .pipe(concat('all.js'))
     .pipe(gulp.dest('dist/js'))
 });
- 
+gulp.task('jshint', function() {
+  return gulp.src('src/js/*.js')
+    .pipe(jshint('.jshintrc'))
+
+}); 
 // Images
 gulp.task('images', function() {
   return gulp.src('src/images/**/*')
@@ -114,7 +118,7 @@ gulp.task('watch', function() {
   gulp.watch('src/js/plugins/*.js', ['plugins']);
 
   // Watch .js files
-  gulp.watch('src/js/**/*.js', ['scripts-dev']);
+  gulp.watch('src/js/**/*.js', ['scripts']);
  
   // Watch image files
   gulp.watch('src/images/**/*', ['images']);

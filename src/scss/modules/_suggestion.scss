@@ -1,0 +1,25 @@
+.suggestion-wrapper {
+	@extend %container;
+}
+.suggestion-row {
+	@extend %row;
+}
+.suggestion {
+	@extend %col-lg-10;
+	@extend %col-lg-offset-1;
+	@extend %col-md-10;
+	@extend %col-md-offset-1;
+	@extend %col-sm-12;
+	@extend %col-sm-offset-0;
+
+}
+.suggestion-form {
+	
+}
+
+.suggestion-label {
+	display: block;
+}
+.suggestion-submit {
+	display: block;
+}

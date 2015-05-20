@@ -1,289 +1,41 @@
-$navwidth : 65px; // icon button width
-$navwidthmobile : 35px;
-$navheight : 75px;
-$navheightmobile : 50px;
-$navlabelpad : 35px;
-$moreheight : 38px; // height & line height for "more" links w/o icon for desktop only
-$expandwidth: 270px; // ful expanded menu width
-$expandwidthmobile: 225px;
-$labelwidth : $expandwidth - $navwidth;
-$labelwidthmobile : $expandwidthmobile - $navwidthmobile;
-
-$navmobilebuttonwidthheight: 50px; // was 40px
-
 .nav-wrapper {
-	transition: width 0.2s, transform 0.2s;
-	height: calc(100vh - 105px - 40px);
-	overflow: hidden;
-	position: fixed;
-	left: 0;
-	margin-top: 50px;
-	width: $navwidth;
-	z-index: $zindexinteractive + 50;
-
-	&.is-expanded {
-		border-right-width: 1px;
-		border-right-style: solid;
-		width: $expandwidth;
-		
-		.nav-share-wrapper {
-			width: $expandwidth;
-		}
-		.nav-more-links {
-			display: block;
-		}
-
-	}
-	@media #{$notlarge} {
-		height: 100vh;
-		transform: translateX(100%);
-		margin-top: 0;
-		left: auto;
-		right: 0;
-		top: 0;
-		
-		&.is-expanded {
-			border-right-width: 0px;
-			transform: translateX(0);
-			width: $expandwidthmobile;
-
-			.nav-share-wrapper {
-				width: $expandwidthmobile;
-			}
-		}
-	}
-}
-.nav-links {
-	border-right-width: 1px;
-	border-right-style: solid;
-	border-bottom-width: 1px;
-	border-bottom-style: solid;
-
-	.is-expanded & {
-		border: 0;
-	}
-}
-.nav-link {
-	display: block;
-	height: $navheight;
-	line-height: $navheight;
-	width: $expandwidth;
-	text-decoration: none;
-	@media #{$notlarge} {
-		height: $navheightmobile;
-		line-height: $navheightmobile;
-		padding: 0 0 0 12px;
-		width: $expandwidthmobile;
-	}
-}
-.nav-icon {
-	display: inline-block;
-	float: left;
-	height: $navheight;
-	text-align: center;
-	width: $navwidth;
-
-	svg {
-		display: inline-block;
-		position: relative;
-		vertical-align: middle;
-		width: 32px;
-		@media #{$notlarge} {
-			width: 16px;
-		}
-	}
-	.svg--nav-more {
-		top: -3px;
-	}
-	@media #{$notlarge} {
-		height: $navheightmobile;
-		width: $navwidthmobile;
-	}
-}
-.nav-label {
-	display: inline-block;
-	float: left;
-	line-height: $navheight;
-	padding-left: $navlabelpad;
-	vertical-align: middle;
-	@media #{$notlarge} {
-		line-height: $navheightmobile;
-		padding-left: 0;
-	}
-}
-.nav-more-subhead {
-	@media #{$notlarge} {
-		display: none;
-	}
-}
-.nav-more-links {
-	display: none;
-}
-.nav-more-link {
-	@media #{$lg} {
-		height: $moreheight;
-		.nav-icon {
-			height: $moreheight;
-
-			svg {
-				display: none;
-			}
-		}
-		.nav-label {
-			height: $moreheight;
-			line-height: $moreheight;
-		}
-	}
-	@media #{$notlarge} {
-
-	}
-}
-.nav-share-wrapper {
-	bottom: 0;
-	height: $navheight;
-	margin-bottom: 5px;
-
-	overflow: hidden;
-	position: absolute;
-	width: $navwidth;
-	@media #{$notlarge} { 
-		bottom: $navheightmobile/2;
-		height: $navheightmobile;
-		width: $navwidthmobile;
-		padding: 0 0 0 12px;
-	}
-}
-.nav-share {
-	width: $expandwidth;
-	@media #{$notlarge} {
-		width: $expandwidthmobile;
-	}
-}
-.nav-share-button {
-	display: inline-block;
-	float: left;
-	height: $navheight;
-	line-height: $navheight;
-	width: $navwidth;
-	text-align: center;
-	vertical-align: middle;
-	@media #{$notlarge} {
-		height: $navheightmobile;
-		line-height: $navheightmobile;
-
-		width: $navwidthmobile;
-	}
-}
-.nav-share-button-inner {
-	display: inline-block;
-	vertical-align: middle;
-
-	svg {
-		display: block;
-		margin: 0 auto;
-		width: 32px;
-		@media #{$notlarge} {
-			width: 16px;
-		}
-	}
-	.nav-share-label {
-		display: block;
-		font-size: 10px;
-		line-height: 1;
-		padding: 3px 0 0 0;
-		text-transform: uppercase;
-	}
-}
-.nav-share-services {
-	display: table;
-	float: left;
-	height: $navheight;
-	line-height: $navheight;
-	padding-left: $navlabelpad;
-	vertical-align: middle;
-	width: $labelwidth;
-	@media #{$notlarge} {
-		height: $navheightmobile;
-		line-height: $navheightmobile;
-		width: $labelwidthmobile;
-		padding-left: 22px;
-	}
-}
-.nav-share-service {
-	@extend %svg-font-reset;
-	cursor: pointer;
-	display: table-cell;
-	text-align: left;
-	&:first-child {
-		padding-left: 0;
-	}
-	svg {
-		display: inline-block;
-		vertical-align: middle;
-		height: 16px;
-	}
-}
-.nav-mobile-container {
 	@extend %container;
-	height: 0;
 }
-.nav-mobile-button {
-	@extend %hidden-lg;
-	@extend %svg-font-reset;
-	transition-property: transform, background-color;
-	border-radius: 50%;
-	cursor: pointer;
-	height: $navmobilebuttonwidthheight;
-	margin-top: 15px;
-	position: relative;
-	text-align: center;
-	width: $navmobilebuttonwidthheight;
-	z-index: $zindexinteractive;
+.nav-row {
+	@extend %row;
+}
+.nav {
+	@extend %col-lg-10;
+	@extend %col-lg-offset-1;
+	@extend %col-md-10;
+	@extend %col-md-offset-1;
+	@extend %col-sm-12;
+	@extend %col-sm-offset-0;
 
-	.svg--nav-mobile-dots {
-		transition-property: opacity;
-		display: block;
-		height: 20px;
-		left: 15px;
-		margin: 0 auto;
-		position: absolute;
-		opacity: 1;
-		text-align: center;
-		top: 15px;
-		width: 20px;
-	}
-	.svg--nav-mobile-close {
-		transition-property: opacity;
-		display: block;
-		height: 10px;
-		margin: 0 auto;
-		opacity: 0;
-		position: absolute;
-		text-align: center;
-		left: 15px;
-		top: 20px;
-		width: 20px;
+	background: rgba($logo-main,0.3);
+	border: 2px solid rgba($logo-accent,0.7);
+	
+	border-radius: 3px;
 
-	}
-	&.is-expanded {
-		.svg--nav-mobile-dots {
-			opacity: 0;
-		}
-		.svg--nav-mobile-close {
-			opacity: 1;
+	padding: 1em 0;
+
+	margin-bottom: 2em;
+
+}
+.nav-inner {
+	display: table;
+	width: 100%;
+
+	a {
+		color: #333;
+		display: table-cell;
+		text-decoration: none;
+		text-align: center;
+
+		&:hover {
+			text-decoration: underline;
 		}
 	}
+		
 }
-.js-clingify-wrapper {
-	transition: transform 0.2s;
-  	width: 100%;
-}
-.js-clingify-wrapper.is-locked {
-	transition: transform 0.2s;
-	position: fixed;
-	transform: translateY(-80px);
-	z-index: $zindexinteractive;
-	.nav-mobile-button {
-		margin-top: 35px;
-	}
-}
+	
