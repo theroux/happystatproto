@@ -191,12 +191,10 @@ var happy = {
           noparticipation : []
         };
 
-
-
       for (var submission in storeData) {
 
         var sentimentType = storeData[submission].sentiment,
-            dateSubmitted = new Date(storeData[submission].timestamp*1000);
+            dateSubmitted = new Date(storeData[submission].timestamp);
 
         chartCoords[sentimentType].push(dateSubmitted);
         
@@ -214,9 +212,11 @@ var happy = {
         currentPage = currentPage.substring(0,htmlextension)
       }
 
-      if (currentPage === ('' || 'index')) {
+      if ((currentPage === 'index') || (!currentPage )) {
         currentPage = 'dash';
       }
+
+      console.log(currentPage);
 
       $('nav a[data-href=' + currentPage + ']').addClass('current');
     },
