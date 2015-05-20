@@ -7,8 +7,7 @@ $font : 'Open Sans', Helvetica, sans-serif;
 $bold : 600;
 $semibold : 400;
 
-$copy-size-lg : 14px;
-$copy-size-sm : 12px;
+$headingsize: 1.7rem;
 
 // Colors
 
@@ -28,3 +27,30 @@ body {
 a {
 	color: $textcolor;
 }
+
+%button {
+	background: $highlight;
+	border: 2px solid transparent;
+	color: #fff;
+	border-radius: 3px;
+	padding: 0.5em 1.5em;
+	.button-text {
+		float: left;
+		line-height: 2;
+	}
+	svg {
+		float: left;
+		fill: #fff;
+		height: 2em;
+		width: 2em;
+		margin-right: 0.5em;
+	}
+	&:hover {
+		background: #fff;
+		border: 2px solid $highlight;
+		color: $highlight;
+		svg {
+			fill: $highlight;
+		}
+	}
+} 

@@ -13,13 +13,83 @@
 	@extend %col-sm-offset-0;
 
 }
-.suggestion-form {
-	
-}
+.suggestion-title {
+	font-size: $headingsize;
+	text-align: center;
 
+	margin-bottom: 2.7em;
+
+
+	@media #{$notlarge} { 
+		br {
+			//display: none;
+		}
+	}
+	
+
+}
+.suggestion-form-row {
+	@extend %row;
+}
+.suggestion-form {
+}
+.form-section-first {
+	@extend %col-lg-7;
+	@extend %col-md-7;
+	@extend %col-sm-12;
+
+	@extend %col-lg-offset-1;
+	@extend %col-md-offset-1;
+	@extend %col-sm-offset-0;
+
+	textarea {
+		display: block;
+		min-height: 140px;
+		width: 100%;
+	}
+}
+.form-section-second {
+	@extend %col-lg-3;
+	@extend %col-md-3;
+	@extend %col-sm-12;
+
+	.checkbox-wrapper {
+		margin-top: 1em;
+	}
+
+	input[type=checkbox] {
+		//-webkit-appearance:none;
+		margin-right: 0.5em;
+	}
+	input[type='checkbox']:checked + label {
+    	font-weight: bold;
+	}
+
+
+}
+.form-section-third {
+	@extend %col-lg-12;
+	@extend %col-md-12;
+	@extend %col-sm-12;
+
+	margin-top: 3em;
+	margin-bottom: 3em;
+}
 .suggestion-label {
 	display: block;
+
+	&.textarea-label {
+		margin-bottom: 1em;
+
+	}
+
+	&.fieldgroup-label {
+
+	}
 }
+
 .suggestion-submit {
 	display: block;
+	margin: 0 auto;
+	@extend %button;
 }
