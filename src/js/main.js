@@ -61,6 +61,7 @@ var happy = {
     
         happy.drawN3(coords);
 
+
       }, function (errorObject) {
         console.log('The read failed: ' + errorObject.code);
       });
@@ -68,43 +69,58 @@ var happy = {
     },
     drawN3 : function (data) {
 
-      //console.log(data);
+      //console.dir(data);
+
+      data.forEach(function(d) {
+        d.values.forEach(function(g) {
+          g.x = d3.time.format('%m-%d-%Y').parse(g.x);
+        })
+      });
 
       nv.addGraph(function() {
-        var chart = nv.models.cumulativeLineChart()
-          .x(function(d) { 
-            //console.log(d); 
-            return d[0] 
-          })
-          .y(function(d) { 
-            return d[1] 
-          })
-          .color(d3.scale.category10().range())
-          .useInteractiveGuideline(true)
-          ;
+          var chart = nv.models.lineChart()
+            .useInteractiveGuideline(true)
+            .margin({left: 42}, {right: 42})
+            ;
 
-        chart.xAxis
-          .tickFormat(function(d) {
-            return d3.time.format('%x')(new Date(d))
-          });
+          chart.xAxis
+              //.axisLabel("Dates")
+              .tickFormat(function(d) {
+                  return d3.time.format('%b %d')(new Date(d))
+              });
 
-        chart.yAxis.tickFormat(d3.format(',d'));
+          chart.xScale(d3.time.scale());
 
-        d3.select('#chart svg')
-          .datum(data)
-          //.transition().duration(500)
-          .call(chart)
-          ;
+          chart.yAxis
+              //.axisLabel("Responses")
+              .tickValues([0, 0.2, 0.4, 0.6, 0.8, 1])
+              .tickFormat(d3.format("%"))
+              ;
 
-        nv.utils.windowResize(chart.update);
+          chart.yDomain([0,1]);
 
-        return chart;
+          d3.select("#chart svg")
+              .datum(data)
+              .transition().duration(500)
+              .call(chart);
+
+          nv.utils.windowResize(
+                  function() {
+                      chart.update();
+                  }
+              );
+
+          return chart;
       });
     },
 
     sortData : function(storeData) {
       var chartCoords = {
           raw : {
+            dates : {
+              participants : {},
+              everyone : {}
+            },
             great : [],
             ok : [],
             notgreat : [],
@@ -114,23 +130,24 @@ var happy = {
             great : {
               values: [],
               key: 'Great',
-              color: '#00ff00'
+              color: '#00bff3'
             },
             ok : {
               values: [],
               key: 'OK',
-              color: '#0000ff'
+              color: '#91278f'
             },
             notgreat : {
               values: [],
               key: 'Not Great',
-              color: '#ff0000'
-            },
+              color: '#bc0c12'
+            }
+            /*,
             noparticipation : {
               values: [],
               key: 'No Participation',
               color: '#000000'
-            }
+            } */
           }
         };
 
@@ -138,62 +155,101 @@ var happy = {
             okresult = {},
             notgreatresult = {},
             noresult = {},
-            finalData = [];
+            finalData = [],
+            i = 0;
 
+      // Loop through every submission
       for (var submission in storeData) {
 
         var sentimentType = storeData[submission].sentiment,
             dateSubmitted = new Date(storeData[submission].timestamp),
             dateFormattedSubmitted = moment(dateSubmitted).format("MM-DD-YYYY");
-            console.log(typeof dateFormattedSubmitted);
         
+        // Find out how many entries per day, including non-participants on PW page.
+        if (chartCoords.raw.dates.everyone[dateFormattedSubmitted]) {
+          chartCoords.raw.dates.everyone[dateFormattedSubmitted] = chartCoords.raw.dates.everyone[dateFormattedSubmitted] + 1;
+        } else {
+          chartCoords.raw.dates.everyone[dateFormattedSubmitted] = 1;
+        }
+
+        // Find out how many entries per day, ignoring people who decided not to participate
+        if ( storeData[submission].sentiment != "noparticipation") {
+          
+          if (chartCoords.raw.dates.participants[dateFormattedSubmitted] ) {
+            chartCoords.raw.dates.participants[dateFormattedSubmitted] = chartCoords.raw.dates.participants[dateFormattedSubmitted] + 1;
+          } else {
+            chartCoords.raw.dates.participants[dateFormattedSubmitted] = 1;
+          }
+
+        }
+
+        // Organize each submission by sentiment
         chartCoords.raw[sentimentType].push(dateFormattedSubmitted);
         
+        // Keep track of total # of submissions
+        i++;
       }
 
+      console.log(i, chartCoords.raw);
+
+
       chartCoords.raw.great.forEach(function(x) { 
-          greatresult[x] = (greatresult[x] || 0)+1; 
+          greatresult[x] = (greatresult[x] || 0) + 1; 
         });
       chartCoords.raw.ok.forEach(function(x) { 
-          okresult[x] = (okresult[x] || 0)+1; 
+          okresult[x] = (okresult[x] || 0) + 1; 
         });
       chartCoords.raw.notgreat.forEach(function(x) { 
-        notgreatresult[x] = (notgreatresult[x] || 0)+1; 
+        notgreatresult[x] = (notgreatresult[x] || 0) + 1; 
       });
+      /*
       chartCoords.raw.noparticipation.forEach(function(x) { 
         noresult[x] = (noresult[x] || 0)+1; 
       });
+      */
 
-      console.log(greatresult);
+      var toPercentage = function(emotionvotes, date) {
+        var percent = emotionvotes / chartCoords.raw.dates.participants[date];
+        return percent;
+      };
 
       var greatarray = $.map(greatresult, function(value, index) {
-          return [[index,value]];
+          return {'x': index, 'y': toPercentage(value, index) };
       });
+      var okarray = $.map(okresult, function(value, index) {
+          return {'x': index, 'y': toPercentage(value, index)};
+      });
+       var notgreatarray = $.map(notgreatresult, function(value, index) {
+          return {'x': index, 'y': toPercentage(value, index)};
+      });
+      /*
+      var noarray = $.map(noresult, function(value, index) {
+          return {'x': index, 'y': value};
+      });
+      */
+    
 
-      console.log(greatarray);
+      chartCoords.results.great.values = greatarray;
+      
+      chartCoords.results.ok.values = okarray;
+      chartCoords.results.notgreat.values = notgreatarray;
+      
+      // chartCoords.results.noparticipation.values = noarray;
+      //finalData.push(chartCoords.results.great);
 
-      chartCoords.results.great.values.push(greatarray);
-
-      console.log(chartCoords.results.great.values);
-
-      finalData.push(chartCoords.results.great);
-      //chartCoords.results.ok.values.push(okresult);
-      //chartCoords.results.notgreat.values.push(notgreatresult);
-      //chartCoords.results.noparticipation.values.push(noresult);
-
-      /* for (var data in chartCoords.results ) {
+      for (var data in chartCoords.results ) {
 
         finalData.push(chartCoords.results[data]);
         
-      } */
+      }
 
-      //console.log(finalData);
+      console.log(finalData);
 
       return finalData;
     },
     suggestion : function() {
       var suggestionDataRef = new Firebase('https://suggestionbox.firebaseio.com/'),
-          gotIt = 'Thanks!';
+          gotIt = 'Got it!';
 
       $('form').on('submit', function(e) {
         e.preventDefault();
@@ -208,8 +264,12 @@ var happy = {
         suggestionDataRef.push({suggestion: suggestion, cdid: cdid, referrer : referrer, shoutout: shoutout, workflow: workflow, problem: problem, newidea: newidea, timestamp : Firebase.ServerValue.TIMESTAMP });
         console.log('submitted suggestion');
 
-        $('.suggestion-submit').attr('disabled', 'disabled').addClass('success').text(gotIt);
+        $('.suggestion-submit').attr('disabled', 'disabled').addClass('success').find('.button-text').text(gotIt);
 
+      });
+
+      $('#suggestiontext').one('keyup change paste', function(e) {
+        $('.suggestion-submit').removeAttr('disabled');
       });
     },
 
@@ -223,15 +283,16 @@ var happy = {
         e.preventDefault();
         var sentiment = $('input[name=mood]:checked').val(),
           cdid = $('#cdid').val(),
+          question = $('.hs-question').text(),
           referrer = $('#referrer').val();
-        sentimentDataRef.push({sentiment: sentiment, cdid: cdid, referrer : referrer, timestamp : Firebase.ServerValue.TIMESTAMP });
+        sentimentDataRef.push({sentiment: sentiment, cdid: cdid, question : question, referrer : referrer, timestamp : Firebase.ServerValue.TIMESTAMP });
         console.log('submitted sentiment');
         $('.hs-question').text(successMessage);
-        $('.sentiment-submit').attr('disabled', 'disabled').addClass('success').text(gotIt);
+        $('.sentiment-submit').attr('disabled', 'disabled').addClass('success').find('.button-text').text(gotIt);
 
       });
 
-      $('.hs-answer').on('click', function() {
+      $('.hs-answer').one('click', function() {
           $('.sentiment-submit').removeAttr('disabled');
       });
     },
@@ -250,8 +311,6 @@ var happy = {
         currentPage = 'dash';
       }
 
-      console.log(currentPage);
-
       $('nav a[data-href=' + currentPage + ']').addClass('current');
     },
 
@@ -264,7 +323,6 @@ var happy = {
       });
       
       console.log('HappyStat front-end initialized.');
-
 
     } // End Init
 };

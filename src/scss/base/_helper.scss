@@ -10,7 +10,15 @@ html {
     height: 100%;
 }
 body {
-  min-height: 100%;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+.wrapper {
+    margin-bottom: 3em;
+    flex: 1;
+}
+.aol-footer-wrapper {
 }
 .ir {
     background-color: transparent;

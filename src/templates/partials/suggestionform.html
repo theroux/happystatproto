@@ -13,14 +13,15 @@
 
 			<div class="form-section-first">
 				<label  class="suggestion-label textarea-label" for="suggestiontext">If you have a great idea, something you want to get off your chest, or want to recognize a fellow AOLer's great effort, we want to hear about it.
-<br>
-				<span>(500 characters max)</span></label>
+
+				<span class="limit">(500 characters max)</span></label>
 				<textarea id="suggestiontext" name="suggestiontext" required /></textarea>
 			</div>
 
 			<div class="form-section-second">
 				<fieldset class="topic">
 					<legend  class="suggestion-label fieldgroup-label " for="topic">Categorize your comment.</legend>
+					<span class="instruction" aria-hidden>Categorize your comment.</span>
 					<div class="checkbox-wrapper">
 						<input type="checkbox" id="shoutout" name="topic" value="shoutout" />
 						<label for="shoutout">Shoutout</label>
@@ -42,7 +43,7 @@
 
 			<div class="form-section-third">
 				<input type="hidden" id="referrer" name="referrer" value="suggestionbox"/>
-				<button class="suggestion-submit" type="submit">
+				<button class="suggestion-submit" disabled type="submit">
 					<svg class="svg-caret" viewbox="0 0 426 201">
 		 				<use xlink:href="#svg-right-caret"></use>
 					</svg>

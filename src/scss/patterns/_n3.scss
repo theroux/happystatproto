@@ -50,10 +50,10 @@ svg.nvd3-svg {
   position: absolute;
   background-color: rgba(255,255,255,1.0);
   padding: 1px;
-  border: 1px solid rgba(0,0,0,.2);
+  border: 1px solid $hrcolor;
   z-index: 10000;
 
-  font-family: Arial;
+  // font-family: Arial;
   font-size: 13px;
   text-align: left;
   pointer-events: none;
@@ -88,8 +88,7 @@ svg.nvd3-svg {
 
 .nvtooltip h3 {
   margin: 0;
-  padding: 4px 14px;
-  line-height: 18px;
+  padding: 0 1em;
   font-weight: normal;
   background-color: rgba(247,247,247,0.75);
   text-align: center;
@@ -155,14 +154,6 @@ svg.nvd3-svg {
   pointer-events: none;
 }
 
-.nvd3 text {
-  font: normal 12px Arial;
-}
-
-.nvd3 .title {
- font: bold 14px Arial;
-}
-
 .nvd3 .nv-background {
   fill: white;
   fill-opacity: 0;
@@ -215,7 +206,7 @@ svg.nvd3-svg {
 
 .nvd3 .nv-axis path {
   fill: none;
-  stroke: #000;
+  stroke: $hrcolor;
   stroke-opacity: .75;
   shape-rendering: crispEdges;
 }
@@ -230,7 +221,7 @@ svg.nvd3-svg {
 
 .nvd3 .nv-axis line {
   fill: none;
-  stroke: #e5e5e5;
+  stroke: $hrcolor;
   shape-rendering: crispEdges;
 }
 
@@ -240,7 +231,7 @@ svg.nvd3-svg {
 }
 
 .nvd3 .nv-axis .nv-axisMaxMin text {
-  font-weight: bold;
+  //font-weight: bold;
 }
 
 .nvd3 .x  .nv-axis .nv-axisMaxMin text,
@@ -366,7 +357,7 @@ svg.nvd3-svg {
 
 .nvd3 .nv-groups path.nv-line {
   fill: none;
-  stroke-width: 1.5px;
+  stroke-width: 2px;
 }
 
 .nvd3 .nv-groups path.nv-line.nv-thin-line {

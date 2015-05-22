@@ -14,19 +14,27 @@
 
 }
 
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
+.dash-title {
+	@extend %heading;
+	margin: 0 auto 1em;
+	text-align: center;
 }
 
-.x.axis path {
-  display: none;
-}
+#chart svg {
+	height: 45vh;
 
-.line {
-  fill: none;
-  stroke: steelblue;
-  stroke-width: 1.5px;
+
+	text {
+		fill: $textcolor;
+	}
+
+    .nv-legendWrap  {
+    	.nv-series:first-child {
+    		&:before {
+    			background-image: url(../images/smiles/great.png);
+    			content: ' ';
+    			display: block;
+    		}
+    	}
+    }
 }

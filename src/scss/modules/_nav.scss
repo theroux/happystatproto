@@ -35,6 +35,7 @@
 	height: 40px;
 
 	svg {
+		float: right;
 		fill: $textcolor;
 		height: 40px;
 		width: 40px;
@@ -56,7 +57,7 @@
 		background: $hrcolor;
 		border-radius: 3px;
 		top: 0;
-		border: 2px solid $hrcolor;
+		border: 1px solid $hrcolor;
 		max-height: 700px;
 
 

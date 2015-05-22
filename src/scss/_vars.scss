@@ -17,16 +17,30 @@ $textcolor: #4c637b;
 $hrcolor : #e3eaf3;
 $highlight : #22c064;
 
+$nearblack : #222222;
+
+html {
+	//background-color: $nearblack;
+}
+
 body {
 	color: $textcolor;
 	font-family: $font;
 	font-weight: $semibold;
-	
+}
+.wrapper {
+	background-color: #fff;
 }
 
 a {
 	color: $textcolor;
 }
+
+%heading {
+	font-size: $headingsize;
+	font-weight: $bold;
+}
+
 
 %button {
 	background: $highlight;

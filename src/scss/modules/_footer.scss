@@ -1,7 +1,6 @@
 .aolfooter-wrapper {
-	background: #222;
+	background: $nearblack;
 	color: #fff;
-	margin-top: 50px;
 }
 .aolfooter {
 	@extend %container;

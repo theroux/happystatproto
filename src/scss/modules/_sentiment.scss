@@ -27,8 +27,7 @@
 }
 
 .hs-question {
-	font-size: $headingsize;
-	font-weight: $bold;
+	@extend %heading;
 	display: block;
 	margin: 0 auto 2.7em; // magic #
 	text-align: center;

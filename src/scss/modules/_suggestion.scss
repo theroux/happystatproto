@@ -14,7 +14,8 @@
 
 }
 .suggestion-title {
-	font-size: $headingsize;
+	@extend %heading;
+	
 	text-align: center;
 
 	margin-bottom: 2.7em;
@@ -44,12 +45,26 @@
 
 	textarea {
 		display: block;
-		min-height: 140px;
+		min-height: 10.2em;
 		width: 100%;
+		padding: 1em;
+		border: 2px solid $hrcolor;
+		border-radius: 3px;
 
 		@media #{$notlarge} { 
 			margin-bottom: 1em;
 		}
+	}
+
+	.textarea-label {
+		display: block;
+		margin-bottom: 1em;
+	}
+
+	.limit {
+		display: none;
+		float: right;
+		font-variant: small-caps;
 	}
 }
 .form-section-second {
@@ -57,8 +72,14 @@
 	@extend %col-md-3;
 	@extend %col-sm-12;
 
+	.topic {
+		border: 2px solid $hrcolor;
+		border-radius: 3px;
+		padding: 1em;
+	}
+
 	legend {
-		margin-bottom: 1em;
+		display: none;
 	}
 
 	.checkbox-wrapper {
@@ -73,7 +94,6 @@
     	font-weight: bold;
 	}
 
-
 }
 .form-section-third {
 	@extend %col-lg-12;
@@ -82,19 +102,11 @@
 
 	margin-top: 3em;
 	margin-bottom: 3em;
+
+	
+
 }
-.suggestion-label {
-	display: block;
 
-	&.textarea-label {
-		margin-bottom: 1em;
-
-	}
-
-	&.fieldgroup-label {
-
-	}
-}
 
 .suggestion-submit {
 	display: block;
